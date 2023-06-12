@@ -1,0 +1,52 @@
+# Visual studio code settings
+**/.vscode/*
+
+# Local terraform files
+
+## .terraform directory
+**/.terraform/*
+
+## terraform files in root
+*.terraform
+*.tfstate
+*.tfstate.*
+*.terraform.lock.hcl
+*.apply.out
+
+# Crash log files
+crash.log
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include tfplan 'out' files to ignore the plan output of command: terraform plan -out=tfplan.out
+apply.out
+
+# Python and Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+venv
+pip-selfcheck.json
+
+# napalm router logs
+*report.yml
+*report-parsed.txt
+*report.txt
+*peerings.txt
+*troubleshooting.txt
+
+# powershell logs
+*transcript.txt
+/.vs

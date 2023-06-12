@@ -1,0 +1,77 @@
+# Azure BUILD and RELEASE pipeline template for Azure DevOps
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - waf_policy
+
+variables:
+- group:  templates-repository-ssh-key
+- group:  templates-terraform-backends
+- name:   terraformVersion
+  value:  '1.1.2'
+- name:   projectname
+  value:  'waf_policy' # Name of project, should match the root folder name where code is stored
+- name:   reponame
+  value:  'rsg_apphub_apigw'
+
+resources:
+  repositories:
+  - repository: templates
+    type: git
+    name: CloudInfrastructure/templates
+
+stages:
+- template: terraform/terraform-parallel.yaml@templates
+  parameters:
+    environments:
+
+#    - name:                       'dv1_eu2'
+#      env:                        'dv1'
+#      region:                     'eu2'
+#      azureServiceConnection:     '$(azureServiceConnection_nonprod)'
+#      resourceGroupName:          '$(azureBackendRSG_nonprod)'
+#      backendStorageAccountName:  '$(azureBackendSTA_nonprod)'
+#      backendAzureRmKey:          '$(reponame).$(projectname).dv1_eu2'
+
+    - name:                       'in1_eu2'
+      env:                        'in1'
+      region:                     'eu2'
+      azureServiceConnection:     '$(azureServiceConnection_nonprod)'
+      resourceGroupName:          '$(azureBackendRSG_nonprod)'
+      backendStorageAccountName:  '$(azureBackendSTA_nonprod)'
+      backendAzureRmKey:          '$(reponame).$(projectname).in1_eu2'
+
+    - name:                       'pd1_eu2'
+      env:                        'pd1'
+      region:                     'eu2'
+      azureServiceConnection:     '$(azureServiceConnection_prod)'
+      resourceGroupName:          '$(azureBackendRSG_prod)'
+      backendStorageAccountName:  '$(azureBackendSTA_prod)'
+      backendAzureRmKey:          '$(reponame).$(projectname).pd1_eu2'
+
+    - name:                       'pd1_cus'
+      env:                        'pd1'
+      region:                     'cus'
+      azureServiceConnection:     '$(azureServiceConnection_prod)'
+      resourceGroupName:          '$(azureBackendRSG_prod)'
+      backendStorageAccountName:  '$(azureBackendSTA_prod)'
+      backendAzureRmKey:          '$(reponame).$(projectname).pd1_cus'
+
+    - name:                       'sub_in2_eu2'
+      env:                        'in2'
+      region:                     'eu2'
+      azureServiceConnection:     '$(azureServiceConnection_in2)'
+      resourceGroupName:          '$(azureBackendRSG_in2)'
+      backendStorageAccountName:  '$(azureBackendSTA_in2)'
+      backendAzureRmKey:          '$(reponame).$(projectname).in2_eu2'
+
+    - name:                       'ut1_eu2'
+      env:                        'ut1'
+      region:                     'eu2'
+      azureServiceConnection:     '$(azureServiceConnection_nonprod)'
+      resourceGroupName:          '$(azureBackendRSG_nonprod)'
+      backendStorageAccountName:  '$(azureBackendSTA_nonprod)'
+      backendAzureRmKey:          '$(reponame).$(projectname).ut1_eu2'
